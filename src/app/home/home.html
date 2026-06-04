@@ -2,16 +2,51 @@
 
 <section class="container my-5 text-center">
   <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <h1 class="display-4 fw-extrabold mb-3">
-        Welcome to <span class="text-primary">ApexStore</span>
+    <div class="col-lg-8 mb-5">
+      <h1 class="display-4 fw-extrabold mb-3 text-dark">
+        Explore Our <span class="text-primary">Featured Portals</span>
       </h1>
-      <p class="lead text-secondary mb-4">
-        Your ultimate shopping destination for trending tech gadgets, classic designer jewelry, and stylish wardrobe essentials. Enjoy free shipping on orders over $50!
+      <p class="lead text-secondary">
+        Discover premium products at ApexStore or master international culinary arts at ChefSavour. We bring convenience and inspiration together.
       </p>
-      <div class="d-flex justify-content-center gap-3 mb-5">
-        <a routerLink="products" class="btn btn-primary btn-lg px-4"><i class="fa-solid fa-store me-2"></i>Browse Products</a>
-        <a routerLink="Items" class="btn btn-outline-dark btn-lg px-4">All Items</a>
+    </div>
+  </div>
+
+  <!-- Portal Choices Row -->
+  <div class="row g-4 justify-content-center mb-5">
+    <!-- Portal 1: ApexStore -->
+    <div class="col-md-5">
+      <div class="card border-0 bg-white shadow-sm h-100 overflow-hidden text-start rounded-4 transition-card" style="border: 1px solid #e2e8f0 !important;">
+        <div class="p-4 d-flex flex-column h-100">
+          <div class="d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle mb-3" style="width: 50px; height: 50px;">
+            <i class="fa-solid fa-bag-shopping fa-lg"></i>
+          </div>
+          <h4 class="fw-bold text-dark mb-2">ApexStore</h4>
+          <p class="text-secondary small mb-4">
+            Browse our handpicked collections of next-gen electronics, gorgeous fine jewelry, and the latest designer trends in men's and women's apparel.
+          </p>
+          <a routerLink="products" class="btn btn-primary mt-auto text-white fw-bold py-2" style="background-color: #00aaff; border: none;">
+            <i class="fa-solid fa-store me-2"></i>Enter Shop Portal
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Portal 2: ChefSavour -->
+    <div class="col-md-5">
+      <div class="card border-0 bg-white shadow-sm h-100 overflow-hidden text-start rounded-4 transition-card" style="border: 1px solid #e2e8f0 !important;">
+        <div class="p-4 d-flex flex-column h-100">
+          <div class="d-inline-flex align-items-center justify-content-center bg-warning-subtle text-warning rounded-circle mb-3" style="width: 50px; height: 50px;">
+            <i class="fa-solid fa-utensils fa-lg" style="color: #d97706;"></i>
+          </div>
+          <h4 class="fw-bold text-dark mb-2" style="color: #0f766e !important;">ChefSavour</h4>
+          <p class="text-secondary small mb-4">
+            Access a massive database of world-class gourmet recipes. Select ingredients checklists, view prep details, and follow step-by-step instructions.
+          </p>
+          <a routerLink="recipes" class="btn btn-warning mt-auto text-white fw-bold py-2" style="background-color: #d97706; border: none;">
+            <i class="fa-solid fa-kitchen-set me-2"></i>Enter Recipes Portal
+          </a>
+        </div>
       </div>
     </div>
   </div>
