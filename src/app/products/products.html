@@ -1,0 +1,82 @@
+<div class="container my-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-dark">Explore Our Products</h2>
+    <p class="text-secondary mx-auto" style="max-width: 600px;">Find high-quality electronics, classic fine jewelry, and stylish apparel curated just for you.</p>
+  </div>
+
+  <!-- Search, Filter & Sort Controls Panel -->
+  <div class="bg-white p-4 rounded-4 shadow-sm border border-light mb-5">
+    <div class="row g-3 align-items-center">
+      <!-- Search Input -->
+      <div class="col-lg-4 col-md-6">
+        <div class="input-group">
+          <span class="input-group-text bg-light border-0 text-secondary">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+          <input 
+            type="text" 
+            class="form-control bg-light border-0" 
+            placeholder="Search products..." 
+            (input)="onSearch($event)">
+        </div>
+      </div>
+      
+      <!-- Sort Dropdown -->
+      <div class="col-lg-3 col-md-6 ms-auto">
+        <div class="input-group">
+          <span class="input-group-text bg-light border-0 text-secondary small">Sort:</span>
+          <select class="form-select bg-light border-0" (change)="onSortChange($event)">
+            <option value="default">Default Features</option>
+            <option value="priceLow">Price: Low to High</option>
+            <option value="priceHigh">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Filter Pills -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="d-flex flex-wrap gap-2">
+          @for (cat of categories; track cat) {
+            <button 
+              type="button" 
+              class="btn rounded-pill px-3 py-1.5 fs-7 fw-semibold transition" 
+              [class.btn-primary]="selectedCategory === cat" 
+              [class.btn-outline-secondary]="selectedCategory !== cat"
+              [style.background-color]="selectedCategory === cat ? '#00aaff' : ''"
+              [style.border-color]="selectedCategory === cat ? '#00aaff' : ''"
+              (click)="selectCategory(cat)">
+              {{ cat }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Catalog Grid -->
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    @for (item of filteredProducts; track item.id) {
+      <div class="col">
+        <app-itemcard [item]="item"></app-itemcard>
+      </div>
+    } @empty {
+      <div class="col-12 text-center py-5 my-5">
+        <!-- If loading products -->
+        <div *ngIf="products.length === 0" class="spinner-border text-primary" role="status" style="color: #00aaff !important;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p *ngIf="products.length === 0" class="text-secondary mt-3">Loading catalog items...</p>
+
+        <!-- If no products matched filter -->
+        <div *ngIf="products.length > 0">
+          <i class="fa-solid fa-magnifying-glass-minus fa-3x text-muted mb-3"></i>
+          <h5 class="text-muted fw-semibold">No products found</h5>
+          <p class="small text-secondary">Try adjusting your keywords or category filters.</p>
+        </div>
+      </div>
+    }
+  </div>
+</div>

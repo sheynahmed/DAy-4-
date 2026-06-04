@@ -1,0 +1,51 @@
+<app-carousel></app-carousel>
+
+<section class="container my-5 text-center">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <h1 class="display-4 fw-extrabold mb-3">
+        Welcome to <span class="text-primary">ApexStore</span>
+      </h1>
+      <p class="lead text-secondary mb-4">
+        Your ultimate shopping destination for trending tech gadgets, classic designer jewelry, and stylish wardrobe essentials. Enjoy free shipping on orders over $50!
+      </p>
+      <div class="d-flex justify-content-center gap-3 mb-5">
+        <a routerLink="products" class="btn btn-primary btn-lg px-4"><i class="fa-solid fa-store me-2"></i>Browse Products</a>
+        <a routerLink="Items" class="btn btn-outline-dark btn-lg px-4">All Items</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Grid -->
+  <div class="row g-4 text-center my-4">
+    <div class="col-md-4">
+      <div class="card border-0 bg-white p-4 shadow-sm h-100">
+        <div class="d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle mb-3 mx-auto" style="width: 60px; height: 60px;">
+          <i class="fa-solid fa-truck-fast fa-lg"></i>
+        </div>
+        <h5 class="fw-bold">Free Fast Shipping</h5>
+        <p class="text-secondary small mb-0">Get your products delivered to your doorstep quickly and for free on orders over $50.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-0 bg-white p-4 shadow-sm h-100">
+        <div class="d-inline-flex align-items-center justify-content-center bg-success-subtle text-success rounded-circle mb-3 mx-auto" style="width: 60px; height: 60px;">
+          <i class="fa-solid fa-shield-halved fa-lg"></i>
+        </div>
+        <h5 class="fw-bold">Secure Checkout</h5>
+        <p class="text-secondary small mb-0">Shop with complete peace of mind. We use industry-standard encryption for all transactions.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-0 bg-white p-4 shadow-sm h-100">
+        <div class="d-inline-flex align-items-center justify-content-center bg-warning-subtle text-warning rounded-circle mb-3 mx-auto" style="width: 60px; height: 60px;">
+          <i class="fa-solid fa-rotate-left fa-lg"></i>
+        </div>
+        <h5 class="fw-bold">30-Day Returns</h5>
+        <p class="text-secondary small mb-0">Not satisfied with your item? Return it within 30 days for a full, hassle-free refund.</p>
+      </div>
+    </div>
+  </div>
+
+  <app-accordion></app-accordion>
+</section>

@@ -1,0 +1,28 @@
+<div class="container my-5">
+  <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center border-bottom pb-3 mb-4 gap-2">
+    <div>
+      <h2 class="fw-bold mb-0 text-dark">Complete Catalog</h2>
+      <p class="text-secondary small mb-0">Browse through our entire collection of premium products</p>
+    </div>
+    <div>
+      <span class="badge bg-primary px-3 py-2 fs-6" style="background-color: #00aaff !important;">
+        {{ data ? data.length : 0 }} Products Available
+      </span>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    @for (item of data; track item.id) {
+      <div class="col">
+        <app-itemcard [item]="item"></app-itemcard>
+      </div>
+    } @empty {
+      <div class="col-12 text-center py-5 my-5">
+        <div class="spinner-border text-primary" role="status" style="color: #00aaff !important;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="text-secondary mt-3">Loading premium products...</p>
+      </div>
+    }
+  </div>
+</div>

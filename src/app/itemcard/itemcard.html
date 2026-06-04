@@ -1,0 +1,27 @@
+<div class="product-card">
+  <div class="img-container">
+    <span class="category-badge">{{ item.category }}</span>
+    <img [src]="item.image" class="product-img" [alt]="item.title">
+  </div>
+  
+  <div class="card-body-custom">
+    <h5 class="product-title" [title]="item.title">{{ item.title }}</h5>
+    <p class="product-description">{{ item.description }}</p>
+    
+    <!-- Rating -->
+    <div class="rating-container" *ngIf="item.rating">
+      <span class="star-rating">
+        <i class="fa-solid fa-star"></i> {{ item.rating.rate }}
+      </span>
+      <span class="text-secondary small">({{ item.rating.count }} reviews)</span>
+    </div>
+
+    <!-- Price and Add Cart Actions -->
+    <div class="price-row">
+      <span class="product-price">{{ item.price | currency }}</span>
+      <button class="btn btn-add-cart" (click)="onAddToCart()">
+        <i class="fa-solid fa-cart-plus"></i> Add
+      </button>
+    </div>
+  </div>
+</div>
