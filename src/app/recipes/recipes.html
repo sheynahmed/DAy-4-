@@ -1,0 +1,186 @@
+<div class="container my-5">
+  <!-- Culinary Rebranding Header -->
+  <div class="text-center culinary-header">
+    <h2 class="fw-extrabold display-5 title-accent">
+      <i class="fa-solid fa-utensils me-3 text-warning"></i>Chef<span>Savour</span>
+    </h2>
+    <p class="text-secondary mx-auto mb-0" style="max-width: 600px;">
+      Explore fine culinary recipes from across the globe. Check off ingredients, calculate prep times, and master any cuisine.
+    </p>
+  </div>
+
+  <!-- Search & Filter Controls Panel -->
+  <div class="bg-white p-4 rounded-4 shadow-sm border border-light mb-5 recipe-search-panel">
+    <div class="row g-3 align-items-center">
+      <!-- Search Input -->
+      <div class="col-lg-5 col-md-8">
+        <div class="input-group">
+          <span class="input-group-text bg-light border-0 text-secondary">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+          <input 
+            type="text" 
+            class="form-control bg-light border-0" 
+            placeholder="Search recipes, ingredients, tags..." 
+            (input)="onSearch($event)">
+        </div>
+      </div>
+    </div>
+
+    <!-- Cuisine Filters -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <h6 class="text-secondary small fw-bold mb-2 uppercase" style="letter-spacing: 0.8px;">Filter by Cuisine:</h6>
+        <div class="d-flex flex-wrap gap-2">
+          @for (cuisine of cuisines; track cuisine) {
+            <button 
+              type="button" 
+              class="btn btn-cuisine" 
+              [class.active]="selectedCuisine === cuisine"
+              (click)="selectCuisine(cuisine)">
+              {{ cuisine }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recipe Catalog Grid -->
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-4">
+    @for (recipe of filteredRecipes; track recipe.id) {
+      <div class="col">
+        <div class="recipe-card">
+          <!-- Image -->
+          <div class="recipe-img-container">
+            <span class="cuisine-badge">{{ recipe.cuisine }}</span>
+            <img [src]="recipe.image" [alt]="recipe.name" class="recipe-img">
+          </div>
+          
+          <!-- Body -->
+          <div class="recipe-body">
+            <h5 class="recipe-title">{{ recipe.name }}</h5>
+            
+            <!-- Recipe Meta -->
+            <div class="recipe-meta-grid">
+              <span class="meta-item">
+                <i class="fa-solid fa-clock"></i> {{ recipe.prepTimeMinutes + recipe.cookTimeMinutes }} mins
+              </span>
+              <span class="meta-item">
+                <i class="fa-solid fa-fire-burner"></i> {{ recipe.difficulty }}
+              </span>
+              <span class="meta-item">
+                <i class="fa-solid fa-star"></i> {{ recipe.rating }} ({{ recipe.reviewCount }})
+              </span>
+            </div>
+
+            <!-- View Trigger -->
+            <button class="btn btn-view-recipe" (click)="openRecipeDetails(recipe)">
+              <i class="fa-solid fa-book-open me-2"></i>View Full Recipe
+            </button>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="col-12 text-center py-5 my-5">
+        <!-- Loading state -->
+        <div *ngIf="recipes.length === 0" class="spinner-border text-warning" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p *ngIf="recipes.length === 0" class="text-secondary mt-3">Fetching recipes from culinary vault...</p>
+
+        <!-- No results match filters -->
+        <div *ngIf="recipes.length > 0">
+          <i class="fa-solid fa-utensils-slash fa-3x text-muted mb-3"></i>
+          <h5 class="text-muted fw-semibold">No recipes found</h5>
+          <p class="small text-secondary">Try adjusting your cuisine or search filters.</p>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- Custom Recipe Details Modal (Backdrop Overlay) -->
+<div class="modal fade show" tabindex="-1" style="display: block; background-color: rgba(0,0,0,0.6);" *ngIf="selectedRecipe">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 overflow-hidden rounded-4">
+      
+      <!-- Modal Header -->
+      <div class="modal-header modal-culinary-header border-0 align-items-center">
+        <h5 class="modal-title fw-bold m-0 d-flex align-items-center">
+          <i class="fa-solid fa-carrot me-2 text-warning"></i>{{ selectedRecipe.name }}
+        </h5>
+        <button type="button" class="modal-close-btn" (click)="closeRecipeDetails()" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body p-4" style="max-height: 75vh; overflow-y: auto;">
+        <img [src]="selectedRecipe.image" [alt]="selectedRecipe.name" class="recipe-detail-img shadow-sm">
+
+        <div class="row g-4">
+          <!-- Left Column: Description & Metadata -->
+          <div class="col-md-5">
+            <h6 class="section-subtitle">Recipe Info</h6>
+            <ul class="list-unstyled mb-4 text-secondary small" style="line-height: 1.8;">
+              <li class="d-flex justify-content-between mb-2 border-bottom pb-1">
+                <span>Cuisine:</span>
+                <strong class="text-dark">{{ selectedRecipe.cuisine }}</strong>
+              </li>
+              <li class="d-flex justify-content-between mb-2 border-bottom pb-1">
+                <span>Meal Type:</span>
+                <strong class="text-dark">{{ selectedRecipe.mealType.join(', ') }}</strong>
+              </li>
+              <li class="d-flex justify-content-between mb-2 border-bottom pb-1">
+                <span>Prep Time:</span>
+                <strong class="text-dark">{{ selectedRecipe.prepTimeMinutes }} mins</strong>
+              </li>
+              <li class="d-flex justify-content-between mb-2 border-bottom pb-1">
+                <span>Cook Time:</span>
+                <strong class="text-dark">{{ selectedRecipe.cookTimeMinutes }} mins</strong>
+              </li>
+              <li class="d-flex justify-content-between mb-2 border-bottom pb-1">
+                <span>Servings:</span>
+                <strong class="text-dark">{{ selectedRecipe.servings }}</strong>
+              </li>
+              <li class="d-flex justify-content-between mb-2 pb-1">
+                <span>Calories:</span>
+                <strong class="text-dark">{{ selectedRecipe.caloriesPerServing }} kcal / serving</strong>
+              </li>
+            </ul>
+
+            <h6 class="section-subtitle">Ingredients <span class="small fw-normal text-secondary">(check off)</span></h6>
+            <div class="d-flex flex-column gap-1">
+              @for (ingredient of selectedRecipe.ingredients; track ingredient) {
+                <label class="ingredient-check-item">
+                  <input type="checkbox" class="ingredient-checkbox">
+                  <span class="ingredient-text">{{ ingredient }}</span>
+                </label>
+              }
+            </div>
+          </div>
+
+          <!-- Right Column: Step-by-Step Cooking Steps -->
+          <div class="col-md-7">
+            <h6 class="section-subtitle">Instructions</h6>
+            <div class="instructions-list mt-3">
+              @for (step of selectedRecipe.instructions; track step; let idx = $index) {
+                <div class="instruction-step">
+                  <span class="step-number">{{ idx + 1 }}</span>
+                  <p class="step-text">{{ step }}</p>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer border-0 bg-light p-3">
+        <button type="button" class="btn btn-secondary px-4 py-2" (click)="closeRecipeDetails()">Close Window</button>
+      </div>
+
+    </div>
+  </div>
+</div>

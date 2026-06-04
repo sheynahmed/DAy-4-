@@ -6,8 +6,10 @@ import { Injectable } from '@angular/core';
 })
 export class ApiServices {
   constructor(private http: HttpClient ) {}
-getfakestore(){
-  return this.http.get("https://fakestoreapi.com/products");  
-
-}
+  getfakestore(){
+    return this.http.get("https://fakestoreapi.com/products");  
+  }
+  getRecipes(){
+    return this.http.get("https://dummyjson.com/recipes");  
+  }
 }
